@@ -1,8 +1,6 @@
 # README
 
-
-
-## GROUP <3>
+## GROUP 3
 
 - Member 1: Bảo
 - Member 2: Hằng
