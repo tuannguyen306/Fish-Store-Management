@@ -5,12 +5,49 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+# Clear existing records
 Fish.delete_all
 
-fish = Fish.create([
-  { name: "Goldfish", price: 10.0, species: "Carassius auratus", size: 15, water_type: "freshwater", quantity: 50 },
-  { name: "Betta", price: 5.0, species: "Betta splendens", size: 7, water_type: "freshwater", quantity: 100 },
-  { name: "Guppy", price: 3.0, species: "Poecilia reticulata", size: 5, water_type: "freshwater", quantity: 200 },
-  { name: "Oscar", price: 15.0, species: "Astronotus ocellatus", size: 25, water_type: "freshwater", quantity: 30 },
-  { name: "Clownfish", price: 20.0, species: "Amphiprioninae", size: 10, water_type: "saltwater", quantity: 20 }
-])
+# Seed new data with find_or_create_by to avoid duplicates
+Fish.find_or_create_by(name: "Goldfish") do |fish|
+  fish.price = 10.0
+  fish.species = "Carassius auratus"
+  fish.size = 15
+  fish.water_type = "freshwater"
+  fish.quantity = 50
+end
+
+Fish.find_or_create_by(name: "Betta") do |fish|
+  fish.price = 5.0
+  fish.species = "Betta splendens"
+  fish.size = 7
+  fish.water_type = "freshwater"
+  fish.quantity = 100
+end
+
+Fish.find_or_create_by(name: "Guppy") do |fish|
+  fish.price = 3.0
+  fish.species = "Poecilia reticulata"
+  fish.size = 5
+  fish.water_type = "freshwater"
+  fish.quantity = 200
+end
+
+Fish.find_or_create_by(name: "Oscar") do |fish|
+  fish.price = 15.0
+  fish.species = "Astronotus ocellatus"
+  fish.size = 25
+  fish.water_type = "freshwater"
+  fish.quantity = 30
+end
+
+Fish.find_or_create_by(name: "Clownfish") do |fish|
+  fish.price = 20.0
+  fish.species = "Amphiprioninae"
+  fish.size = 10
+  fish.water_type = "saltwater"
+  fish.quantity = 20
+end
+
+puts "Database seeded with #{Fish.count} fish."
+

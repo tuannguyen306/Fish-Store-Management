@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_20_093039) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_20_132745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,7 +62,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_20_093039) do
     t.string "water_type"
     t.integer "quantity"
   end
-
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false

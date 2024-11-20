@@ -17,10 +17,31 @@
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.number_field :price %>
+    <%= form.number_field :price, step: 0.01 %>
   </div>
 
   <div class="field">
-    <%= form.submit %>
+    <%= form.label :species %>
+    <%= form.text_field :species %>
+  </div>
+
+  <div class="field">
+    <%= form.label :size, "Size (in cm)" %>
+    <%= form.number_field :size, step: 1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :water_type %>
+    <%= form.select :water_type, options_for_select(["Freshwater", "Saltwater"], fish.water_type) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity, step: 1 %>
+  </div>
+
+  <div class="field">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
+
