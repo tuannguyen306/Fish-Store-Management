@@ -13,14 +13,40 @@
   </div>
 
   <ul class="text-slate-700">
-      <li>
-        <p class="font-semibold">Name:</p>
-        <p><%= @fish.name %></p>
-      </li>
-      <li>
-        <p class="font-semibold">Price:</p>
-        <p><%= @fish.price %></p>
-      </li>
+    <!-- Name -->
+    <li>
+      <p class="font-semibold">Name:</p>
+      <p><%= @fish.name %></p>
+    </li>
+    
+    <!-- Price -->
+    <li>
+      <p class="font-semibold">Price:</p>
+      <p><%= @fish.price %></p>
+    </li>
+
+    <!-- Species -->
+    <li>
+      <p class="font-semibold">Species:</p>
+      <p><%= @fish.species %></p>
+    </li>
+
+    <!-- Size -->
+    <li>
+      <p class="font-semibold">Size:</p>
+      <p><%= @fish.size %> cm</p>
+    </li>
+
+    <!-- Water Type -->
+    <li>
+      <p class="font-semibold">Water Type:</p>
+      <p><%= @fish.water_type.capitalize %></p> <!-- Capitalize the first letter of water type -->
+    </li>
+
+    <!-- Quantity -->
+    <li>
+      <p class="font-semibold">Quantity:</p>
+      <p><%= @fish.quantity %></p>
+    </li>
   </ul>
 </div>
-

@@ -1,47 +1,29 @@
-<%= form_with(model: fish, local: true) do |form| %>
-  <% if fish.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(fish.errors.count, "error") %> prohibited this fish from being saved:</h2>
-      <ul>
-        <% fish.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+<%= form_with model: @fish, local: true, class: "space-y-4" do |f| %>
+  <div>
+    <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price, step: 0.01 %>
+  <div>
+    <%= f.label :price, "Price", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.number_field :price, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
-
-  <div class="field">
-    <%= form.label :species %>
-    <%= form.text_field :species %>
+  <div>
+    <%= f.label :species, "Species", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_field :species, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
-
-  <div class="field">
-    <%= form.label :size, "Size (in cm)" %>
-    <%= form.number_field :size, step: 1 %>
+  <div>
+    <%= f.label :size, "Size (in cm)", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.number_field :size, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
-
-  <div class="field">
-    <%= form.label :water_type %>
-    <%= form.select :water_type, options_for_select(["Freshwater", "Saltwater"], fish.water_type) %>
+  <div>
+    <%= f.label :water_type, "Water Type", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.select :water_type, ["Freshwater", "Saltwater"], {}, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
-
-  <div class="field">
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity, step: 1 %>
+  <div>
+    <%= f.label :quantity, "Quantity", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.number_field :quantity, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
-
-  <div class="field">
-    <%= form.submit class: "btn btn-primary" %>
+  <div>
+    <%= f.submit "Create Fish", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700" %>
   </div>
 <% end %>
-
