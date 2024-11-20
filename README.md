@@ -3,9 +3,9 @@
 ## GROUP 3
 
 - Member 1: Bảo
-- Member 2: Hằng
-- Member 3: Duy
-- Member 4: Thành
+- Member 2: Chat GPT
+- Member 3: Chat GPT mini
+- Member 4: Gemini
 
 
 ## Starting server
