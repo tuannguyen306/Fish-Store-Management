@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html class="h-full antialiased">
-  <%= render "shared/head" %>
+  <head>
+    <link rel="icon" href="<%= asset_path 'favicon.png' %>" type="image/png">
+    <%= csp_meta_tag %>
+    <%= csrf_meta_tags %>
+    <%= render "shared/head" %>
+  </head>
 
-  <body class="font-sans font-normal leading-normal text-gray-800 bg-white flex flex-col min-h-screen ">
-
-    <header>
+  <body class="font-sans font-normal leading-normal text-gray-800 bg-white flex flex-col min-h-screen">
+    <header role="banner">
       <%= render "shared/flash_notice" %>
       <%= render "shared/navbar" %>
     </header>
 
-    <main class="flex-grow">
+    <main role="main" class="flex-grow">
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
+
+    <footer class="bg-gray-200 py-4 text-center">
+      <p>&copy; <%= Time.current.year %> Fish Store. All rights reserved.</p>
+    </footer>
   </body>
 </html>
