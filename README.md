@@ -1,6 +1,6 @@
 # README
 
-## GROUP 3
+## GROUP 9
 
 - Member 1: Bảo
 - Member 2: Chat GPT
