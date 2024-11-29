@@ -1,5 +1,5 @@
 class FishController < ApplicationController
-  before_action :set_fish, only: %i[ show edit update destroy ]
+  before_action :set_fish, only: %i[show edit update destroy]
 
   # GET /fish or /fish.json
   def index
@@ -23,6 +23,9 @@ class FishController < ApplicationController
   def create
     @fish = Fish.new(fish_params)
 
+    # Log image attachment details for debugging
+    Rails.logger.debug "Creating fish: Image attached? #{@fish.image.attached?}"
+
     respond_to do |format|
       if @fish.save
         format.html { redirect_to fish_url(@fish), notice: "Fish was successfully created." }
@@ -36,8 +39,12 @@ class FishController < ApplicationController
 
   # PATCH/PUT /fish/1 or /fish/1.json
   def update
+    # Ensure the image is re-attached correctly if updated
+    Rails.logger.debug "Updating fish: Image attached? Before update: #{@fish.image.attached?}"
+
     respond_to do |format|
       if @fish.update(fish_params)
+        Rails.logger.debug "Updating fish: Image attached? After update: #{@fish.image.attached?}"
         format.html { redirect_to fish_url(@fish), notice: "Fish was successfully updated." }
         format.json { render :show, status: :ok, location: @fish }
       else
@@ -50,7 +57,6 @@ class FishController < ApplicationController
   # DELETE /fish/1 or /fish/1.json
   def destroy
     @fish.destroy
-
     respond_to do |format|
       format.html { redirect_to fish_index_url, notice: "Fish was successfully destroyed." }
       format.json { head :no_content }
@@ -58,13 +64,14 @@ class FishController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fish
-      @fish = Fish.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def fish_params
-      params.require(:fish).permit(:name, :price, :species, :size, :water_type, :quantity)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fish
+    @fish = Fish.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def fish_params
+    params.require(:fish).permit(:name, :price, :species, :size, :water_type, :quantity, :image, :description)
+  end
 end

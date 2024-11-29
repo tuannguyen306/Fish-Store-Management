@@ -1,29 +1,60 @@
-<%= form_with model: @fish, local: true, class: "space-y-4" do |f| %>
+<%= form_with model: @fish, local: true, multipart: true, class: "space-y-4" do |f| %>
+  <!-- Name Field -->
   <div>
     <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700" %>
     <%= f.text_field :name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
+
+  <!-- Price Field -->
   <div>
     <%= f.label :price, "Price", class: "block text-sm font-medium text-gray-700" %>
     <%= f.number_field :price, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
+
+  <!-- Species Field -->
   <div>
     <%= f.label :species, "Species", class: "block text-sm font-medium text-gray-700" %>
     <%= f.text_field :species, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
+
+  <!-- Size Field -->
   <div>
     <%= f.label :size, "Size (in cm)", class: "block text-sm font-medium text-gray-700" %>
     <%= f.number_field :size, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
+
+  <!-- Water Type Field -->
   <div>
     <%= f.label :water_type, "Water Type", class: "block text-sm font-medium text-gray-700" %>
-    <%= f.select :water_type, ["Freshwater", "Saltwater"], {}, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+    <%= f.select :water_type, ["Freshwater", "Saltwater", "Brackish"], {}, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
+
+  <!-- Quantity Field -->
   <div>
     <%= f.label :quantity, "Quantity", class: "block text-sm font-medium text-gray-700" %>
     <%= f.number_field :quantity, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
   </div>
+
+  <!-- Image Upload Field -->
   <div>
-    <%= f.submit "Create Fish", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700" %>
+    <%= f.label :image, "Fish Image", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.file_field :image, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+    <% if @fish.image.attached? %>
+      <div class="mt-2">
+        <p class="text-sm text-gray-500">Current Image:</p>
+        <%= image_tag @fish.image, class: "mt-2 w-32 h-32 object-cover rounded" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Description Field -->
+  <div>
+    <%= f.label :description, "Description", class: "block text-sm font-medium text-gray-700" %>
+    <%= f.text_area :description, rows: 5, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+  </div>
+
+  <!-- Submit Button -->
+  <div>
+    <%= f.submit "Save Fish", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700" %>
   </div>
 <% end %>

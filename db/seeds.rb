@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
 # Clear existing records
 Fish.delete_all
 
@@ -15,6 +8,8 @@ Fish.find_or_create_by(name: "Goldfish") do |fish|
   fish.size = 15
   fish.water_type = "freshwater"
   fish.quantity = 50
+  fish.images = "goldfish.jpg"
+  fish.description = "A beautiful freshwater fish often kept in home aquariums."
 end
 
 Fish.find_or_create_by(name: "Betta") do |fish|
@@ -23,6 +18,8 @@ Fish.find_or_create_by(name: "Betta") do |fish|
   fish.size = 7
   fish.water_type = "freshwater"
   fish.quantity = 100
+  fish.images = "betta.jpg"
+  fish.description = "Known as the Siamese fighting fish, admired for its vibrant colors."
 end
 
 Fish.find_or_create_by(name: "Guppy") do |fish|
@@ -31,6 +28,8 @@ Fish.find_or_create_by(name: "Guppy") do |fish|
   fish.size = 5
   fish.water_type = "freshwater"
   fish.quantity = 200
+  fish.images = "guppy.jpg"
+  fish.description = "A hardy and colorful species, ideal for beginners."
 end
 
 Fish.find_or_create_by(name: "Oscar") do |fish|
@@ -39,6 +38,8 @@ Fish.find_or_create_by(name: "Oscar") do |fish|
   fish.size = 25
   fish.water_type = "freshwater"
   fish.quantity = 30
+  fish.images = "oscar.jpg"
+  fish.description = "A large and intelligent fish, popular among experienced aquarists."
 end
 
 Fish.find_or_create_by(name: "Clownfish") do |fish|
@@ -47,7 +48,8 @@ Fish.find_or_create_by(name: "Clownfish") do |fish|
   fish.size = 10
   fish.water_type = "saltwater"
   fish.quantity = 20
+  fish.images = "clownfish.jpg"
+  fish.description = "A saltwater species made famous by the movie 'Finding Nemo.'"
 end
 
 puts "Database seeded with #{Fish.count} fish."
-
