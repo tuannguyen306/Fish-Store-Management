@@ -55,12 +55,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_28_095314) do
   create_table "fish", force: :cascade do |t|
     t.string "name"
     t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "species"
     t.integer "size"
     t.string "water_type"
     t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.text "description"
   end
 

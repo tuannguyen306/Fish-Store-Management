@@ -72,6 +72,6 @@ class FishController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def fish_params
-    params.require(:fish).permit(:name, :price, :species, :size, :water_type, :quantity, :image, :description)
-  end
-end
+    params.require(:fish).permit(:name, :price, :species, :size, :water_type, :quantity, :description, :image)
+  end  
+end  

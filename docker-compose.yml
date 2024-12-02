@@ -24,6 +24,7 @@ services:
     volumes:
       - bundle_cache:/bundle:cached
       - .:/app
+      - ./storage:/app/storage  # Add this line to map the storage folder
     depends_on:
       - postgres
       - redis
