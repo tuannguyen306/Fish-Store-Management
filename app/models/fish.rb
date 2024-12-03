@@ -35,3 +35,10 @@ class Fish < ApplicationRecord
     image.attached?
   end
 end
+
+def image_content_type_validation
+  if image.attached? && !image.content_type.in?(%w[image/png image/jpg image/jpeg image/gif])
+    errors.add(:image, 'must be a PNG, JPG, JPEG, or GIF')
+    image.purge # Remove the invalid file
+  end
+end

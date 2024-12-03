@@ -23,7 +23,6 @@ class FishController < ApplicationController
   def create
     @fish = Fish.new(fish_params)
 
-    # Log image attachment details for debugging
     Rails.logger.debug "Creating fish: Image attached? #{@fish.image.attached?}"
 
     respond_to do |format|
@@ -39,8 +38,11 @@ class FishController < ApplicationController
 
   # PATCH/PUT /fish/1 or /fish/1.json
   def update
-    # Ensure the image is re-attached correctly if updated
     Rails.logger.debug "Updating fish: Image attached? Before update: #{@fish.image.attached?}"
+
+    if fish_params[:image].present? && !@fish.image.attached?
+      Rails.logger.debug "New image being attached"
+    end
 
     respond_to do |format|
       if @fish.update(fish_params)
@@ -74,4 +76,4 @@ class FishController < ApplicationController
   def fish_params
     params.require(:fish).permit(:name, :price, :species, :size, :water_type, :quantity, :description, :image)
   end  
-end  
+end

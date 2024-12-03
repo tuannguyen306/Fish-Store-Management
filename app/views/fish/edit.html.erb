@@ -6,6 +6,20 @@
     <% end %>
   </div>
 
+  <% if @fish.errors[:image].any? %>
+  <div class="error-message">
+    <%= @fish.errors[:image].join(", ") %>
+  </div>
+<% end %>
+
+<% if @fish.image.attached? && @fish.image.content_type.starts_with?('image/') %>
+  <p>Current Image:</p>
+  <%= image_tag @fish.image.variant(resize_to_limit: [300, 300]), class: "rounded-lg" %>
+<% else %>
+  <p>No image available or the file is not an image.</p>
+<% end %>
+
+
   <%= form_with(model: @fish, local: true, class: "space-y-4", multipart: true) do |f| %>
     <div>
       <%= f.label :name, "Name", class: "block text-sm font-medium text-gray-700" %>

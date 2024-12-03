@@ -1,0 +1,22 @@
+<h1>Sales List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sales.each do |sale| %>
+      <tr>
+        <td><%= sale.product.name %></td>
+        <td><%= sale.quantity %></td>
+        <td><%= sale.total_price %></td>
+        <td><%= link_to 'Show', sale_path(sale) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
