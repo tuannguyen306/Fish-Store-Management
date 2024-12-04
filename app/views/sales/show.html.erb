@@ -1,0 +1,45 @@
+<h1 class="text-2xl font-semibold text-gray-800">Sale Details</h1>
+
+<div class="mt-6 bg-white shadow-md rounded-lg p-6">
+  <!-- Sale Product Details -->
+  <div class="mb-4">
+    <h2 class="text-xl font-semibold text-gray-700">Product</h2>
+    <p class="text-sm text-gray-600">
+      <strong>Name:</strong> <%= @sale.product.name %>
+    </p>
+    <p class="text-sm text-gray-600">
+      <strong>Species:</strong> <%= @sale.product.species %>
+    </p>
+    <p class="text-sm text-gray-600">
+      <strong>Price:</strong> <%= number_to_currency(@sale.product.price) %>
+    </p>
+    <% if @sale.product.image.attached? %>
+      <div class="mt-2">
+        <p class="text-sm text-gray-500">Product Image:</p>
+        <%= image_tag @sale.product.image, class: "mt-2 w-32 h-32 object-cover rounded" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Sale Details -->
+  <div class="mb-4">
+    <h2 class="text-xl font-semibold text-gray-700">Sale Information</h2>
+    <p class="text-sm text-gray-600">
+      <strong>Quantity Sold:</strong> <%= @sale.quantity %>
+    </p>
+    <p class="text-sm text-gray-600">
+      <strong>Total Price:</strong> <%= number_to_currency(@sale.total_price) %>
+    </p>
+    <p class="text-sm text-gray-600">
+      <strong>Sale Date:</strong> <%= @sale.sale_date.strftime("%B %d, %Y") %>
+    </p>
+    <p class="text-sm text-gray-600">
+      <strong>Description:</strong> <%= @sale.description %>
+    </p>
+  </div>
+
+  <!-- Back to Sales Link -->
+  <div class="mt-4">
+    <%= link_to 'Back to Sales', sales_path, class: "text-blue-600 hover:text-blue-800" %>
+  </div>
+</div>

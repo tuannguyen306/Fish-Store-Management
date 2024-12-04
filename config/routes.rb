@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'customers/index'
+  get 'customers/show'
   # Admin Panel
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
@@ -22,7 +24,10 @@ Rails.application.routes.draw do
   resources :sales, only: [:index, :create, :new]
 
   # Fish resource (if you need it for later purposes, though you're not selling fish)
-  resources :fish, only: [:index] # Assuming you're only listing fish for reference
+  resources :fish, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+
+  resources :customers, only: [:index, :show]
+
 
   # Set the root path to home#index
   root to: 'home#index'

@@ -1,32 +1,39 @@
-<%= form_with(model: @sale, local: true) do |form| %>
-    <% if @sale.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
-        <ul>
-          <% @sale.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+<%= form_with model: @sale, local: true, html: { enctype: "multipart/form-data" }, class: "space-y-6" do |f| %>
   
-    <div class="field">
-      <%= form.label :product_id %>
-      <%= form.collection_select :product_id, Product.all, :id, :name, prompt: "Select a product" %>
+    <!-- Product Field -->
+    <div>
+      <%= f.label :product_id, "Product", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.collection_select :product_id, Product.all, :id, :name, {}, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+    </div>
+    
+    <!-- Quantity Field -->
+    <div>
+      <%= f.label :quantity, "Quantity", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :quantity, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm", required: true %>
+    </div>
+    
+    <!-- Total Price Field -->
+    <div>
+      <%= f.label :total_price, "Total Price", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :total_price, step: 0.01, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm", required: true %>
+    </div>
+    
+    <!-- Sale Date Field -->
+    <div>
+      <%= f.label :sale_date, "Sale Date", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.date_select :sale_date, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+
+    
+    <!-- Description Field -->
+    <div>
+      <%= f.label :description, "Description", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_area :description, rows: 5, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+    </div>
+    
+    <!-- Submit Button -->
+    <div>
+      <%= f.submit "Save Sale", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700" %>
     </div>
   
-    <div class="field">
-      <%= form.label :quantity %>
-      <%= form.number_field :quantity, min: 1 %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :total_price %>
-      <%= form.number_field :total_price, step: 0.01, min: 0.01 %>
-    </div>
-  
-    <div class="actions">
-      <%= form.submit %>
-    </div>
   <% end %>
   

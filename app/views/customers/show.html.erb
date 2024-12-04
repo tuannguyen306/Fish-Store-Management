@@ -1,0 +1,22 @@
+<h1>Transactions for <%= @customer.name %></h1>
+
+<p>Email: <%= @customer.email %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= number_to_currency(transaction.amount) %></td>
+        <td><%= transaction.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

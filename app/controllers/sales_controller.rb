@@ -1,9 +1,8 @@
 class SalesController < ApplicationController
-  before_action :set_product, only: [:create, :show]
+  before_action :set_sale, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
-    @sales = Sale.all  # Optionally display sales on the index page
+    @sales = Sale.includes(:product).all
   end
 
   def new
@@ -19,10 +18,29 @@ class SalesController < ApplicationController
     end
   end
 
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @sale.update(sale_params)
+      redirect_to sales_path, notice: 'Sale was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @sale.destroy
+    redirect_to sales_path, notice: 'Sale was successfully deleted.'
+  end
+
   private
 
-  def set_product
-    @product = Product.find(params[:product_id])  # Ensure the correct product is selected for the sale
+  def set_sale
+    @sale = Sale.find(params[:id])
   end
 
   def sale_params
