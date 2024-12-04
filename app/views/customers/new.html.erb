@@ -1,0 +1,17 @@
+<h1 class="text-2xl font-bold mb-6">Add New Customer</h1>
+
+<%= form_with model: @customer, local: true do |f| %>
+  <div class="mb-4">
+    <%= f.label :name, class: "block text-gray-700 font-bold" %>
+    <%= f.text_field :name, class: "border rounded w-full py-2 px-3 text-gray-700" %>
+  </div>
+  
+  <div class="mb-4">
+    <%= f.label :email, class: "block text-gray-700 font-bold" %>
+    <%= f.email_field :email, class: "border rounded w-full py-2 px-3 text-gray-700" %>
+  </div>
+  
+  <div>
+    <%= f.submit "Save", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+<% end %>
