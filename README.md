@@ -1,11 +1,12 @@
 # README
 
-## GROUP 9
+## GROUP 3
 
-- Member 1: Bảo
-- Member 2: Chat GPT
-- Member 3: Chat GPT mini
-- Member 4: Gemini
+- Member 1: Phạm Vũ Dương
+- Member 2: Lương Thanh Hằng
+- Member 3: Nguyễn Thanh Lâm
+- Member 4: Tuấn Nguyễn
+- Member 5: Nguyễn Quang Bảo
 
 
 ## Starting server
