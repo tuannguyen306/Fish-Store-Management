@@ -44,9 +44,8 @@ class ProductsController < ApplicationController
   end
 
   private
-
-  # Strong parameters to whitelist product attributes for creating/updating products
-  def product_params
-    params.require(:product).permit(:name, :price, :quantity)
-  end
+# Strong parameters to whitelist product attributes for creating/updating products
+def product_params
+  params.require(:product).permit(:name, :price, :quantity, :description, :category, :image)
+end
 end

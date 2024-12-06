@@ -13,6 +13,7 @@
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Product Name</th>
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Price</th>
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Quantity</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Category</th> <!-- New Category Column -->
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Actions</th>
       </tr>
     </thead>
@@ -23,6 +24,7 @@
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= product.name %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= number_to_currency(product.price) %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= product.quantity %></td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= product.category %></td> <!-- Display Category -->
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
             <%= link_to 'Edit', edit_product_path(product), class: "text-blue-500 hover:underline" %> |
             <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %>

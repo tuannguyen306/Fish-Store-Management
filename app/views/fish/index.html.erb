@@ -16,6 +16,8 @@
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Size</th>
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Water Type</th>
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Quantity</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Description</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Image</th>
       </tr>
     </thead>
 
@@ -30,6 +32,12 @@
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.size %> cm</td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.water_type %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.quantity %></td>
+          <!-- Description Column -->
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.description %></td>
+          <!-- Image Column -->
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+            <%= image_tag fish.image, class: "w-16 h-16 object-cover" if fish.image.present? %>
+          </td>
         <% end %>
       <% end %>
     </tbody>

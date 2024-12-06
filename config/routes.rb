@@ -1,5 +1,3 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
   get 'customers/index'
   get 'customers/show'
@@ -21,13 +19,12 @@ Rails.application.routes.draw do
   end
 
   # Routes for Sales (listing sales)
-  resources :sales, only: [:index, :create, :new]
+  resources :sales, only: [:index, :create, :new, :edit, :update]
 
   # Fish resource (if you need it for later purposes, though you're not selling fish)
   resources :fish, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
   resources :customers, only: [:index, :show, :new, :create]
-
 
   # Set the root path to home#index
   root to: 'home#index'

@@ -10,7 +10,7 @@
   <table class="table-auto border-collapse border-slate-400 w-full">
     <thead class="bg-slate-50 dark:bg-slate-700">
       <tr>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Product</th>
+        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Product Name</th>
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Quantity</th>
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Total Price</th>
         <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Actions</th>
@@ -20,7 +20,7 @@
     <tbody>
       <% @sales.each do |sale| %>
         <tr class="border-t">
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= sale.product_name %></td>
+          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= sale.product.name %></td> <!-- Displaying the product name -->
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= sale.quantity %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= number_to_currency(sale.total_price) %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">

@@ -1,7 +1,9 @@
-# Clear existing records
-Fish.delete_all
+# Clear existing records in the correct order
+Transaction.delete_all  # Delete dependent records first
 Customer.delete_all
-Transaction.delete_all
+Sale.delete_all
+Product.delete_all
+Fish.delete_all
 
 # Path to the placeholder image
 image_path = Rails.root.join('app', 'assets', 'images', 'placeholder.jpg')
@@ -81,10 +83,40 @@ customer2 = Customer.find_or_create_by(name: "Bob", email: "bob@example.com", ph
 customer3 = Customer.find_or_create_by(name: "Charlie", email: "charlie@example.com", phone: "456-789-0123")
 
 # Seed transaction data
-customer1.transactions.find_or_create_by(amount: 25.0)
-customer1.transactions.find_or_create_by(amount: 50.0)
-customer2.transactions.find_or_create_by(amount: 200.0)
-customer3.transactions.find_or_create_by(amount: 15.0)
-customer3.transactions.find_or_create_by(amount: 30.0)
+customer1.transactions.find_or_create_by(amount: 25.0, description: "Purchased Betta and supplies")
+customer1.transactions.find_or_create_by(amount: 50.0, description: "Bulk order of Guppies")
+customer2.transactions.find_or_create_by(amount: 200.0, description: "Custom aquarium setup")
+customer3.transactions.find_or_create_by(amount: 15.0, description: "Small fish tank decorations")
+customer3.transactions.find_or_create_by(amount: 30.0, description: "Added a heater to the tank")
 
-puts "Database seeded with #{Fish.count} fish and #{Customer.count} customers, with #{Transaction.count} transactions."
+# Seed products data
+products = [
+  { name: "Goldfish Food", price: 5.99, description: "Premium flakes for goldfish", category: "Fish Supplies" },
+  { name: "Aquarium Heater", price: 30.50, description: "Keeps your tank at the ideal temperature", category: "Equipment" },
+  { name: "Aquarium Filter", price: 45.00, description: "Efficient filtration system for aquariums", category: "Equipment" },
+  { name: "Water Conditioner", price: 10.00, description: "Makes tap water safe for fish", category: "Fish Supplies" },
+  { name: "Fish Tank LED Light", price: 25.99, description: "Energy-saving LED lighting for aquariums", category: "Equipment" }
+]
+
+products.each do |product_data|
+  Product.find_or_create_by(name: product_data[:name]) do |product|
+    product.price = product_data[:price]
+    product.description = product_data[:description]
+    product.category = product_data[:category]
+  end
+end
+
+# Seed sales data
+sales = [
+  { product_id: 1, quantity: 2, total_price: 11.98 }, # Goldfish Food
+  { product_id: 2, quantity: 1, total_price: 30.50 }, # Aquarium Heater
+  { product_id: 3, quantity: 1, total_price: 45.00 }, # Aquarium Filter
+  { product_id: 4, quantity: 3, total_price: 30.00 }, # Water Conditioner
+  { product_id: 5, quantity: 4, total_price: 103.96 } # Fish Tank LED Light
+]
+
+sales.each do |sale_data|
+  Sale.create!(sale_data)
+end
+
+puts "Database seeded with #{Fish.count} fish, #{Customer.count} customers, #{Transaction.count} transactions, #{Product.count} products, and #{Sale.count} sales."
