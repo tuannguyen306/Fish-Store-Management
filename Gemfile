@@ -80,6 +80,7 @@ gem "friendly_id", "~> 5.4", ">= 5.4.2"
 gem "cssbundling-rails"
 gem "name_of_person"
 gem "sidekiq", "~> 6.5", ">= 6.5.4"
+gem "sinatra", require: nil
 gem "stripe"
 gem "pg", "1.3.5"
 gem "dotenv-rails"

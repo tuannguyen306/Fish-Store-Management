@@ -8,17 +8,16 @@ Bundler.require(*Rails.groups)
 
 module NguyenDucAnh0123456789LibrarySystemFinalSubmission
   class Application < Rails::Application
+    # Use Sidekiq for Active Job queueing
     config.active_job.queue_adapter = :sidekiq
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    # Add additional hosts for the application
     config.hosts << "library-app-production-5dbc.up.railway.app"
+
+    # Ensure Sidekiq is included in eager loading
+    config.eager_load_paths += %W(#{config.root}/app/workers)
   end
 end

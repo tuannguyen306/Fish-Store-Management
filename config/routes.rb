@@ -1,12 +1,15 @@
+require 'sidekiq/web' # Ensure this is explicitly required
+
 Rails.application.routes.draw do
   get 'customers/index'
   get 'customers/show'
+
   # Admin Panel
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # Devise routes for user authentication
   devise_for :users
-  
+
   # Mount Sidekiq Web UI for admins only
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
