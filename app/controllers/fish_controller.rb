@@ -3,7 +3,11 @@ class FishController < ApplicationController
 
   # GET /fish or /fish.json
   def index
-    @fish = Fish.all
+    if params[:query].present?
+      @fish = Fish.where('name LIKE ?', "%#{params[:query]}%")
+    else
+      @fish = Fish.all
+    end
   end
 
   # GET /fish/1 or /fish/1.json

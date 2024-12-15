@@ -25,7 +25,9 @@
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= customer.name %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= customer.email %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            <%= link_to 'View Transactions', customer_path(customer), class: "text-blue-500 hover:underline" %>
+            <%= link_to 'View Transactions', customer_path(customer), class: "text-blue-500 hover:underline" %> |
+            <%= link_to 'Edit', edit_customer_path(customer), class: "text-yellow-500 hover:underline" %> |
+            <%= link_to 'Delete', customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-500 hover:underline' %>
           </td>
         </tr>
       <% end %>

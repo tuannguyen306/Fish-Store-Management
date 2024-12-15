@@ -2,6 +2,11 @@
   <div class="flex items-center justify-between flex-wrap mb-6">
     <h1 class="text-3xl font-bold">Fish</h1>
 
+    <%= form_with(url: fish_index_path, method: :get, local: true, class: "mb-4 flex items-center") do %>
+      <input type="text" name="query" placeholder="Search Fish..." class="border border-gray-300 rounded-l px-4 py-2 w-64">
+      <button type="submit" class="bg-blue-500 text-white rounded-r px-4 py-2">Search</button>
+    <% end %>
+
     <%= link_to new_fish_path, class: button_class(theme: "primary") do %>
       Add New Fish
     <% end %>
