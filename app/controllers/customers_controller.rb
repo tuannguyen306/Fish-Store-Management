@@ -39,7 +39,7 @@ class CustomersController < ApplicationController
     @customer.destroy
     redirect_to customers_path, alert: 'Customer deleted successfully.'
   end
-
+  
   private
 
   def customer_params

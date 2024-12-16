@@ -1,0 +1,47 @@
+<%= form_with model: @product, local: true, html: { class: "space-y-6" } do |f| %>
+    <!-- Product Name Field -->
+    <div>
+      <%= f.label :name, "Product Name", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      <% if @product.errors[:name].any? %>
+        <div class="text-red-500 text-sm mt-1">
+          <%= @product.errors[:name].first %>
+        </div>
+      <% end %>
+    </div>
+  
+    <!-- Price Field -->
+    <div>
+      <%= f.label :price, "Price", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :price, step: 0.01, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      <% if @product.errors[:price].any? %>
+        <div class="text-red-500 text-sm mt-1">
+          <%= @product.errors[:price].first %>
+        </div>
+      <% end %>
+    </div>
+  
+    <!-- Quantity Field -->
+    <div>
+      <%= f.label :quantity, "Quantity", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.number_field :quantity, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+    </div>
+  
+    <!-- Category Field -->
+    <div>
+      <%= f.label :category, "Category", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :category, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+    </div>
+  
+    <!-- Description Field (last) -->
+    <div>
+      <%= f.label :description, "Description", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_area :description, rows: 5, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+    </div>
+  
+    <!-- Submit Button -->
+    <div>
+      <%= f.submit "Save Product", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-700" %>
+    </div>
+  <% end %>
+  
