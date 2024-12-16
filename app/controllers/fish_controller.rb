@@ -3,11 +3,17 @@ class FishController < ApplicationController
 
   # GET /fish or /fish.json
   def index
-    if params[:query].present?
-      @fish = Fish.where('name LIKE ?', "%#{params[:query]}%")
-    else
-      @fish = Fish.all
-    end
+    @fish = Fish.all
+
+    # Search by Name
+    @fish = @fish.where('name LIKE ?', "%#{params[:query]}%") if params[:query].present?
+
+    # Filter by Water Type
+    @fish = @fish.where(water_type: params[:water_type]) if params[:water_type].present?
+
+    # Sort by Price
+    sort_order = params[:sort_order] || "asc"
+    @fish = @fish.order(price: sort_order)
   end
 
   # GET /fish/1 or /fish/1.json

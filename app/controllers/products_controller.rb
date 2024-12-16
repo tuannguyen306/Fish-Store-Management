@@ -1,10 +1,18 @@
 class ProductsController < ApplicationController
   def index
+    @products = Product.all
+
+    # Search by name or category
     if params[:query].present?
-      @products = Product.where('name LIKE ? OR category LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%")
-    else
-      @products = Product.all
+      @products = @products.where('name LIKE ? OR category LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%")
     end
+
+    # Filter by Category
+    @products = @products.where(category: params[:category]) if params[:category].present?
+
+    # Sort by Price
+    sort_order = params[:sort_order] || "asc"
+    @products = @products.order(price: sort_order)
   end
 
   def show

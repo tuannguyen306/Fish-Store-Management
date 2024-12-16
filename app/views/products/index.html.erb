@@ -2,16 +2,33 @@
   <div class="flex items-center justify-between flex-wrap mb-6">
     <h1 class="text-3xl font-bold">Products</h1>
 
+    <!-- Search and Filter Form -->
     <%= form_with(url: products_path, method: :get, local: true, class: "mb-4 flex items-center") do %>
-      <input type="text" name="query" placeholder="Search Products..." class="border border-gray-300 rounded-l px-4 py-2 w-64">
+      <input type="text" name="query" placeholder="Search Products..." value="<%= params[:query] %>" class="border border-gray-300 rounded-l px-4 py-2 w-64">
+
+      <!-- Category Filter -->
+      <select name="category" class="border border-gray-300 px-2 py-2">
+        <option value="">Filter by Category</option>
+        <option value="Fish Supplies" <%= 'selected' if params[:category] == 'Fish Supplies' %>>Fish Supplies</option>
+        <option value="Equipment" <%= 'selected' if params[:category] == 'Equipment' %>>Equipment</option>
+        <!-- Add other categories as needed -->
+      </select>
+
       <button type="submit" class="bg-blue-500 text-white rounded-r px-4 py-2">Search</button>
     <% end %>
+
+    <!-- Sort Buttons -->
+    <div class="mt-2">
+      <%= link_to "Sort by Price (Low to High)", products_path(sort_order: "asc"), class: "bg-gray-200 px-4 py-2 rounded mr-2" %>
+      <%= link_to "Sort by Price (High to Low)", products_path(sort_order: "desc"), class: "bg-gray-200 px-4 py-2 rounded" %>
+    </div>
 
     <%= link_to new_product_path, class: button_class(theme: "primary") do %>
       Add New Product
     <% end %>
   </div>
 
+  <!-- Product Table -->
   <table class="table-auto border-collapse border-slate-400 w-full">
     <thead class="bg-slate-50 dark:bg-slate-700">
       <tr>
@@ -31,8 +48,7 @@
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= product.quantity %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= product.category %></td>
           <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            <%= link_to 'Edit', edit_product_path(product), class: "text-blue-500 hover:underline" %> |
-            <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %>
+            <%= link_to 'Edit', edit_product_path(product), class: "text-blue-500 hover:underline" %>
           </td>
         </tr>
       <% end %>

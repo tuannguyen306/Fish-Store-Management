@@ -2,48 +2,62 @@
   <div class="flex items-center justify-between flex-wrap mb-6">
     <h1 class="text-3xl font-bold">Fish</h1>
 
+    <!-- Search and Filter Form -->
     <%= form_with(url: fish_index_path, method: :get, local: true, class: "mb-4 flex items-center") do %>
-      <input type="text" name="query" placeholder="Search Fish..." class="border border-gray-300 rounded-l px-4 py-2 w-64">
+      <!-- Search Field -->
+      <input type="text" name="query" placeholder="Search Fish..." value="<%= params[:query] %>" class="border border-gray-300 rounded-l px-4 py-2 w-64">
+      
+      <!-- Water Type Filter -->
+      <select name="water_type" class="border border-gray-300 px-2 py-2">
+        <option value="">Filter by Water Type</option>
+        <option value="freshwater" <%= 'selected' if params[:water_type] == 'freshwater' %>>Freshwater</option>
+        <option value="saltwater" <%= 'selected' if params[:water_type] == 'saltwater' %>>Saltwater</option>
+      </select>
+
+      <!-- Submit Button -->
       <button type="submit" class="bg-blue-500 text-white rounded-r px-4 py-2">Search</button>
     <% end %>
+
+    <!-- Sort Buttons -->
+    <div class="mt-2">
+      <%= link_to "Sort by Price (Low to High)", fish_index_path(sort_order: "asc"), class: "bg-gray-200 px-4 py-2 rounded mr-2" %>
+      <%= link_to "Sort by Price (High to Low)", fish_index_path(sort_order: "desc"), class: "bg-gray-200 px-4 py-2 rounded" %>
+    </div>
 
     <%= link_to new_fish_path, class: button_class(theme: "primary") do %>
       Add New Fish
     <% end %>
   </div>
 
+  <!-- Fish Table -->
   <table class="table-auto border-collapse border-slate-400 w-full">
     <thead class="bg-slate-50 dark:bg-slate-700">
       <tr>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Name</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Price</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Species</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Size</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Water Type</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Quantity</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Description</th>
-        <th class="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Image</th>
+        <th class="border border-slate-300 p-4 text-left">Name</th>
+        <th class="border border-slate-300 p-4 text-left">Price</th>
+        <th class="border border-slate-300 p-4 text-left">Species</th>
+        <th class="border border-slate-300 p-4 text-left">Size</th>
+        <th class="border border-slate-300 p-4 text-left">Water Type</th>
+        <th class="border border-slate-300 p-4 text-left">Quantity</th>
+        <th class="border border-slate-300 p-4 text-left">Description</th>
+        <th class="border border-slate-300 p-4 text-left">Image</th>
       </tr>
     </thead>
 
     <tbody>
       <% @fish.each do |fish| %>
-        <%= content_tag :tr, id: dom_id(fish), class: dom_class(fish) do %>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            <%= link_to fish.name, fish %>
+        <tr>
+          <td class="border border-slate-300 p-4"><%= link_to fish.name, fish %></td>
+          <td class="border border-slate-300 p-4"><%= fish.price %></td>
+          <td class="border border-slate-300 p-4"><%= fish.species %></td>
+          <td class="border border-slate-300 p-4"><%= fish.size %> cm</td>
+          <td class="border border-slate-300 p-4"><%= fish.water_type.capitalize %></td>
+          <td class="border border-slate-300 p-4"><%= fish.quantity %></td>
+          <td class="border border-slate-300 p-4"><%= fish.description %></td>
+          <td class="border border-slate-300 p-4">
+            <%= image_tag fish.image, class: "w-20 h-20 object-cover" if fish.image.present? %>
           </td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.price %></td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.species %></td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.size %> cm</td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.water_type %></td>
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.quantity %></td>
-          <!-- Description Column -->
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400"><%= fish.description %></td>
-          <!-- Image Column -->
-          <td class="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-            <%= image_tag fish.image, class: "w-16 h-16 object-cover" if fish.image.present? %>
-          </td>
-        <% end %>
+        </tr>
       <% end %>
     </tbody>
   </table>
