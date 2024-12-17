@@ -55,8 +55,13 @@
           <td class="border border-slate-300 p-4"><%= fish.quantity %></td>
           <td class="border border-slate-300 p-4"><%= fish.description %></td>
           <td class="border border-slate-300 p-4">
-            <%= image_tag fish.image, class: "w-20 h-20 object-cover" if fish.image.present? %>
-          </td>
+  <% if fish.image.attached? %>
+    <%= image_tag fish.image.variant(resize_to_limit: [64, 64]), class: "w-16 h-16 object-cover" %>
+  <% else %>
+    <span>No Image</span>
+  <% end %>
+</td>
+
         </tr>
       <% end %>
     </tbody>

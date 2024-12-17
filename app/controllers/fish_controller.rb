@@ -4,13 +4,10 @@ class FishController < ApplicationController
   # GET /fish or /fish.json
   def index
     @fish = Fish.all
-
     # Search by Name
     @fish = @fish.where('name LIKE ?', "%#{params[:query]}%") if params[:query].present?
-
     # Filter by Water Type
     @fish = @fish.where(water_type: params[:water_type]) if params[:water_type].present?
-
     # Sort by Price
     sort_order = params[:sort_order] || "asc"
     @fish = @fish.order(price: sort_order)
@@ -37,6 +34,8 @@ class FishController < ApplicationController
 
     respond_to do |format|
       if @fish.save
+        Rails.logger.debug("Attached image successfully: #{@fish.image.attached?}")
+        Rails.logger.debug("Image blob: #{@fish.image.blob.inspect if @fish.image.attached?}")
         format.html { redirect_to fish_url(@fish), notice: "Fish was successfully created." }
         format.json { render :show, status: :created, location: @fish }
       else
@@ -49,17 +48,18 @@ class FishController < ApplicationController
   # PATCH/PUT /fish/1 or /fish/1.json
   def update
     Rails.logger.debug "Updating fish: Image attached? Before update: #{@fish.image.attached?}"
-
-    if fish_params[:image].present? && !@fish.image.attached?
-      Rails.logger.debug "New image being attached"
-    end
-
+  
     respond_to do |format|
+      if fish_params[:image].present?
+        Rails.logger.debug "New image detected: #{fish_params[:image].original_filename}"
+      end
+  
       if @fish.update(fish_params)
-        Rails.logger.debug "Updating fish: Image attached? After update: #{@fish.image.attached?}"
+        Rails.logger.debug "Update successful. Image attached after update? #{@fish.image.attached?}"
         format.html { redirect_to fish_url(@fish), notice: "Fish was successfully updated." }
         format.json { render :show, status: :ok, location: @fish }
       else
+        Rails.logger.debug "Update failed: #{@fish.errors.full_messages.join(', ')}"
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @fish.errors, status: :unprocessable_entity }
       end
@@ -68,6 +68,7 @@ class FishController < ApplicationController
 
   # DELETE /fish/1 or /fish/1.json
   def destroy
+    Rails.logger.debug("Destroying fish: #{@fish.id}")
     @fish.destroy
     respond_to do |format|
       format.html { redirect_to fish_index_url, notice: "Fish was successfully destroyed." }
@@ -85,5 +86,5 @@ class FishController < ApplicationController
   # Only allow a list of trusted parameters through.
   def fish_params
     params.require(:fish).permit(:name, :price, :species, :size, :water_type, :quantity, :description, :image)
-  end  
+  end
 end

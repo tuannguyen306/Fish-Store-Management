@@ -5,8 +5,14 @@ Sale.delete_all
 Product.delete_all
 Fish.delete_all
 
-# Path to the placeholder image
-image_path = Rails.root.join('app', 'assets', 'images', 'placeholder.jpg')
+# Map each fish name to its corresponding image
+fish_images = {
+  "Goldfish" => Rails.root.join('app/assets/images/goldfish.jpg'),
+  "Betta" => Rails.root.join('app/assets/images/betta.jpg'),
+  "Guppy" => Rails.root.join('app/assets/images/guppy.jpg'),
+  "Oscar" => Rails.root.join('app/assets/images/oscar.jpg'),
+  "Clownfish" => Rails.root.join('app/assets/images/clownfish.jpg')
+}
 
 # Seed fish data
 fish_data = [
@@ -67,11 +73,14 @@ fish_data.each do |data|
     f.description = data[:description]
   end
 
-  # Attach the placeholder image to the fish
+  # Attach the specific image to the fish
+  image_file = fish_images[data[:name]]
+  image_path = Rails.root.join('app', 'assets', 'images', image_file)
+
   unless fish.image.attached?
     fish.image.attach(
-      io: File.open(image_path),
-      filename: 'placeholder.jpg',
+      io: File.open(fish_images[data[:name]]),
+      filename: "#{data[:name].downcase}.jpg",
       content_type: 'image/jpeg'
     )
   end

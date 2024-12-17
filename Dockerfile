@@ -29,3 +29,5 @@ RUN yarn install --check-files
 COPY docker/*.sh /scripts/
 
 RUN chmod a+x /scripts/*.sh
+
+RUN apt-get update && apt-get install -y libvips libvips-dev

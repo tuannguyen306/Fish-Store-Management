@@ -50,14 +50,15 @@
     </li>
 
     <!-- Fish Image -->
-    <li>
-      <p class="font-semibold">Image:</p>
-      <% if @fish.image.attached? %> <!-- Check if an image is attached -->
-        <%= image_tag @fish.image, alt: @fish.name, class: "mt-4 rounded-lg shadow-md" %>
-      <% else %>
-        <p>No image available</p>
-      <% end %>
-    </li>
+<li>
+  <p class="font-semibold">Image:</p>
+  <% if @fish.image.attached? %> <!-- Check if an image is attached -->
+    <%= image_tag url_for(@fish.image), alt: @fish.name, class: "mt-4 rounded-lg shadow-md" %>
+  <% else %>
+    <p>No image available</p>
+  <% end %>
+</li>
+
 
   </ul>
 </div>
