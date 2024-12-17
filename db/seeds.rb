@@ -74,31 +74,27 @@ fish_data.each do |data|
   end
 
   # Attach the specific image to the fish
-  image_file = fish_images[data[:name]]
-  image_path = Rails.root.join('app', 'assets', 'images', image_file)
+  image_path = fish_images[data[:name]]
 
   unless fish.image.attached?
+    content_type = case File.extname(image_path).downcase
+                   when '.jpg', '.jpeg'
+                     'image/jpeg'
+                   when '.png'
+                     'image/png'
+                   else
+                     'image/gif'  # Default to gif if necessary
+                   end
+
     fish.image.attach(
-      io: File.open(fish_images[data[:name]]),
+      io: File.open(image_path),
       filename: "#{data[:name].downcase}.jpg",
-      content_type: 'image/jpeg'
+      content_type: content_type
     )
   end
 end
 
-# Seed customer data
-customer1 = Customer.find_or_create_by(name: "Alice", email: "alice@example.com", phone: "123-456-7890")
-customer2 = Customer.find_or_create_by(name: "Bob", email: "bob@example.com", phone: "987-654-3210")
-customer3 = Customer.find_or_create_by(name: "Charlie", email: "charlie@example.com", phone: "456-789-0123")
-
-# Seed transaction data
-customer1.transactions.find_or_create_by(amount: 25.0, description: "Purchased Betta and supplies")
-customer1.transactions.find_or_create_by(amount: 50.0, description: "Bulk order of Guppies")
-customer2.transactions.find_or_create_by(amount: 200.0, description: "Custom aquarium setup")
-customer3.transactions.find_or_create_by(amount: 15.0, description: "Small fish tank decorations")
-customer3.transactions.find_or_create_by(amount: 30.0, description: "Added a heater to the tank")
-
-# Seed products data
+# Seed products data - Ensure this is done before sales
 products = [
   { name: "Goldfish Food", price: 5.99, description: "Premium flakes for goldfish", category: "Fish Supplies" },
   { name: "Aquarium Heater", price: 30.50, description: "Keeps your tank at the ideal temperature", category: "Equipment" },
@@ -107,6 +103,7 @@ products = [
   { name: "Fish Tank LED Light", price: 25.99, description: "Energy-saving LED lighting for aquariums", category: "Equipment" }
 ]
 
+# Create products
 products.each do |product_data|
   Product.find_or_create_by(name: product_data[:name]) do |product|
     product.price = product_data[:price]
@@ -115,17 +112,42 @@ products.each do |product_data|
   end
 end
 
-# Seed sales data
+# Seed customers data
+customers = [
+  { name: "Alice", email: "alice@example.com", phone: "123-456-7890" },
+  { name: "Bob", email: "bob@example.com", phone: "987-654-3210" },
+  { name: "Charlie", email: "charlie@example.com", phone: "456-789-0123" }
+]
+
+customers.each do |customer_data|
+  Customer.find_or_create_by(email: customer_data[:email]) do |customer|
+    customer.name = customer_data[:name]
+    customer.phone = customer_data[:phone]
+  end
+end
+
+# Seed sales data - Make sure the products have been created before sales
 sales = [
-  { product_id: 1, quantity: 2, total_price: 11.98 }, # Goldfish Food
-  { product_id: 2, quantity: 1, total_price: 30.50 }, # Aquarium Heater
-  { product_id: 3, quantity: 1, total_price: 45.00 }, # Aquarium Filter
-  { product_id: 4, quantity: 3, total_price: 30.00 }, # Water Conditioner
-  { product_id: 5, quantity: 4, total_price: 103.96 } # Fish Tank LED Light
+  { product_id: Product.find_by(name: "Goldfish Food").id, quantity: 2, total_price: 11.98 },
+  { product_id: Product.find_by(name: "Aquarium Heater").id, quantity: 1, total_price: 30.50 },
+  { product_id: Product.find_by(name: "Aquarium Filter").id, quantity: 1, total_price: 45.00 },
+  { product_id: Product.find_by(name: "Water Conditioner").id, quantity: 3, total_price: 30.00 },
+  { product_id: Product.find_by(name: "Fish Tank LED Light").id, quantity: 4, total_price: 103.96 }
 ]
 
 sales.each do |sale_data|
   Sale.create!(sale_data)
 end
+
+# Seed transactions data for customers
+customer1 = Customer.find_by(email: "alice@example.com")
+customer2 = Customer.find_by(email: "bob@example.com")
+customer3 = Customer.find_by(email: "charlie@example.com")
+
+customer1.transactions.find_or_create_by(amount: 25.0, description: "Purchased Betta and supplies")
+customer1.transactions.find_or_create_by(amount: 50.0, description: "Bulk order of Guppies")
+customer2.transactions.find_or_create_by(amount: 200.0, description: "Custom aquarium setup")
+customer3.transactions.find_or_create_by(amount: 15.0, description: "Small fish tank decorations")
+customer3.transactions.find_or_create_by(amount: 30.0, description: "Added a heater to the tank")
 
 puts "Database seeded with #{Fish.count} fish, #{Customer.count} customers, #{Transaction.count} transactions, #{Product.count} products, and #{Sale.count} sales."
